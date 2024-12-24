@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { PUBLIC_CONTACT_EMAIL } from '$env/static/public';
 
-	const reference: string = $page.url.searchParams.get('subject') ?? '';
+	const reference: string = page.url.searchParams.get('subject') ?? '';
 	const subjectText: string = `subject=${encodeURIComponent(reference)}`;
 	const mailtoUrl = `mailto:${PUBLIC_CONTACT_EMAIL}?${subjectText}`;
 

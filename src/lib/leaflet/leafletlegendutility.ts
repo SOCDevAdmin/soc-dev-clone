@@ -4,7 +4,7 @@ import type {
 	ExtendedPointSymbologyOptions,
 	ExtendedPolygonSymbologyOptions,
 	EnhancedPathOptions,
-	ExtendedLineSymbologyOptions
+	LineSymbologyOptions
 } from './types';
 
 class SymbologyGenerator {
@@ -84,7 +84,7 @@ class SymbologyGenerator {
 		);
 	}
 
-	static createLineStyle(options: ExtendedLineSymbologyOptions): L.PathOptions {
+	static createLineStyle(options: LineSymbologyOptions): L.PathOptions {
 		const style: L.PathOptions = {
 			color: options.color || '#3388ff',
 			weight: options.width || 3,
@@ -100,7 +100,7 @@ class SymbologyGenerator {
 		return style;
 	}
 
-	static createLineSymbol(options: ExtendedLineSymbologyOptions): string {
+	static createLineSymbol(options: LineSymbologyOptions): string {
 		const pattern = options.pattern
 			? `stroke-dasharray="${this.getLineDashArray(options.pattern, true)}"`
 			: '';
@@ -200,3 +200,43 @@ export const {
 	createPolygonStyle,
 	createPolygonSymbol
 } = SymbologyGenerator;
+
+export function generateUniqueColorForKey(key: string, existingColors: Color[]): string {
+	let color = hashStringToColor(key);
+	color = ensureUniqueColor(color, existingColors);
+
+	// Convert color object to hex string
+	const toHex = (value: number) => value.toString(16).padStart(2, '0');
+	return '#' + toHex(color.r) + toHex(color.g) + toHex(color.b);
+}
+
+function hashStringToColor(input: string): Color {
+	let hash = 0;
+	for (let i = 0; i < input.length; i++) {
+		hash = input.charCodeAt(i) + ((hash << 5) - hash);
+	}
+
+	// Convert hash to RGB color
+	const r = (hash & 0xff0000) >> 16;
+	const g = (hash & 0x00ff00) >> 8;
+	const b = hash & 0x0000ff;
+
+	return { r, g, b };
+}
+
+function ensureUniqueColor(color: Color, existingColors: Color[]): Color {
+	// Simple check for exact match; could be enhanced for "near-match"
+	for (const existingColor of existingColors) {
+		if (existingColor.r === color.r && existingColor.g === color.g && existingColor.b === color.b) {
+			// Collision detected; adjust color slightly
+			return { r: color.r, g: color.g, b: (color.b + 1) % 256 };
+		}
+	}
+	return color; // No collision
+}
+
+export interface Color {
+	r: number;
+	g: number;
+	b: number;
+}

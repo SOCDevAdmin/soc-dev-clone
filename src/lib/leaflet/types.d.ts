@@ -101,15 +101,6 @@ interface ExtendedPointSymbologyOptions {
 		color?: string;
 	};
 }
-interface ExtendedLineSymbologyOptions extends L.PathOptions {
-	pattern?: 'solid' | 'dashed' | 'dotted' | 'dashdot';
-	arrowheads?: boolean;
-	gradient?: 'linear' | 'radial';
-	width?: number;
-	offset?: number;
-	lineCap?: 'butt' | 'round' | 'square';
-	lineJoin?: 'miter' | 'round' | 'bevel';
-}
 
 export interface ExtendedPolygonSymbologyOptions extends L.PathOptions {
 	fillPattern?: 'hatch' | 'dots' | 'grid';

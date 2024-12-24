@@ -23,6 +23,13 @@ export const PASSWORD_VALIDATIONS = [
 	}
 ] as const;
 
+export const COMMUNITY_TYPES = {
+	BCYCA: 'BCYCA',
+	TINONEE: 'TINONEE',
+	MONDROOK: 'MONDROOK',
+	EXTERNAL: 'EXTERNAL'
+};
+
 // HTTP Informational responses (1xx)
 export const CONTINUE = 100;
 export const SWITCHING_PROTOCOLS = 101;

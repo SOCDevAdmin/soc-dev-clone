@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { kyngSidebarMenuItems } from '$lib/menu-items';
+	import type { KYNGArea } from '$lib/types';
 
 	type Props = {
-		kyngArea: string;
+		kyngArea: KYNGArea;
 	};
 
 	let { kyngArea }: Props = $props();
-	let permissions = $derived(Array.isArray($page.data.permissions) ? $page.data.permissions : []);
+	let permissions = $derived(page.data.permissions ? page.data.permissions.split(',') : []);
 	let menuItems = $derived(kyngSidebarMenuItems(permissions, kyngArea));
 
 	let activeSubmenus = $state<string[]>([]);

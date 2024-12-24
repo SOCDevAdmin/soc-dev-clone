@@ -3,21 +3,16 @@
 	import type { Writable } from 'svelte/store';
 	import type L from 'leaflet';
 	import { createLineStyle, createLineSymbol } from '$lib/leaflet/leafletlegendutility';
-	import type {
-		LineSymbologyOptions,
-		ExtendedLineSymbologyOptions,
-		LegendInfo,
-		LayerInfo
-	} from '$lib/leaflet/types';
+	import type { LineSymbologyOptions, LegendInfo, LayerInfo } from '$lib/leaflet/types';
 
-    interface LineGroupedSymbologyOptions {
-    propertyField: string;
-    groups: Array<{
-        value: string | number;
-        symbol: LineSymbologyOptions;
-        label: string;
-    }>;
-}
+	interface LineGroupedSymbologyOptions {
+		propertyField: string;
+		groups: Array<{
+			value: string | number;
+			symbol: LineSymbologyOptions;
+			label: string;
+		}>;
+	}
 
 	interface Props {
 		geojsonData: GeoJSON.FeatureCollection;
@@ -28,7 +23,7 @@
 		editable: boolean;
 		symbology: LineSymbologyOptions | LineGroupedSymbologyOptions;
 		propertyForSymbol?: string;
-		symbolMap?: Record<string, ExtendedLineSymbologyOptions>;
+		symbolMap?: Record<string, LineSymbologyOptions>;
 		tooltipField?: string;
 		tooltipOptions?: L.TooltipOptions;
 	}
@@ -67,18 +62,18 @@
 			const groupSymbol =
 				symbology.groups.find((g: { value: unknown }) => g.value === value)?.symbol ||
 				symbology.groups[0].symbol;
-			return createLineStyle(groupSymbol as ExtendedLineSymbologyOptions);
+			return createLineStyle(groupSymbol as LineSymbologyOptions);
 		}
 
 		if (propertyForSymbol && feature.properties?.[propertyForSymbol]) {
 			const styleKey = feature.properties[propertyForSymbol];
 			return createLineStyle({
-				...(symbology as ExtendedLineSymbologyOptions),
+				...(symbology as LineSymbologyOptions),
 				...symbolMap[styleKey]
 			});
 		}
 
-		return createLineStyle(symbology as ExtendedLineSymbologyOptions);
+		return createLineStyle(symbology as LineSymbologyOptions);
 	}
 
 	function createGeoJSONLayer() {
@@ -138,7 +133,7 @@
 						groupName: symbology.propertyField,
 						items: symbology.groups.map(
 							(group: { value: string | number; symbol: LineSymbologyOptions; label: string }) => ({
-								symbol: createLineSymbol(group.symbol as ExtendedLineSymbologyOptions),
+								symbol: createLineSymbol(group.symbol as LineSymbologyOptions),
 								description: String(group.value)
 							})
 						)
@@ -149,7 +144,7 @@
 		return {
 			items: [
 				{
-					symbol: createLineSymbol(symbology as ExtendedLineSymbologyOptions),
+					symbol: createLineSymbol(symbology as LineSymbologyOptions),
 					description: layerName
 				}
 			]

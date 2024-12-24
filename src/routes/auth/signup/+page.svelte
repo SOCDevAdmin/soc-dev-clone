@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import AddressIneligible from '$components/form/address-challenge/AddressIneligible.svelte';
 	import AddressSystemError from '$components/form/address-challenge/AddressSystemError.svelte';
 	import AddressUnchallenged from '$components/form/address-challenge/AddressUnchallenged.svelte';
@@ -16,7 +16,7 @@
 	const apiData = form?.apiData as unknown as APIData;
 
 	// Derived values
-	let message = $derived($page.url.searchParams.get('message') ?? '');
+	let message = $derived(page.url.searchParams.get('message') ?? '');
 	let streetaddress = $derived(apiData?.searchaddressstreet ?? '');
 	let suburb = $derived(apiData?.searchaddresssuburb ?? '');
 	let addressStatus = $derived(apiData?.status ?? 100);

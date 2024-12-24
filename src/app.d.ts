@@ -16,6 +16,9 @@ declare global {
 			getCommunityRequestOptions: () => Promise<{
 				userOptionsData: any;
 			}>;
+			user: User | null;
+			permissions: string | null;
+			coordinatesKYNG: KYNGArea[] | null;
 			userProfile: UserProfile | null;
 			propertyIds: string[] | null;
 		}

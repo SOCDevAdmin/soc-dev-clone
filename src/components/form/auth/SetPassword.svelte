@@ -8,6 +8,7 @@
 		validPassword: boolean;
 	}
 
+	// @ts-ignore
 	let { validPassword = $bindable() }: Props = $props();
 
 	let strength = $state(0);

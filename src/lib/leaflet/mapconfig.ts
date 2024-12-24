@@ -19,3 +19,18 @@ export const myMapConfig = {
 		}
 	]
 };
+
+export const kyngMapConfig = {
+	baseLayers: [
+		{
+			name: 'Air Photo',
+			url: 'https://maps.six.nsw.gov.au/arcgis/rest/services/public/NSW_Imagery/MapServer/tile/{z}/{y}/{x}',
+			attribution: `<a href='https://www.spatial.nsw.gov.au' target='_blank'>&copy; Spatial Services NSW </a>`
+		},
+		{
+			name: 'Streets',
+			url: 'https://maps.six.nsw.gov.au/arcgis/rest/services/public/NSW_Base_Map/MapServer/tile/{z}/{y}/{x}',
+			attribution: `<a href='https://www.spatial.nsw.gov.au' target='_blank'>&copy; Spatial Services NSW </a>`
+		}
+	]
+};

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import type { PropertyProfile } from '$lib/form.types';
 	import { profileSidebarMenuItems } from '$lib/menu-items';
 
@@ -11,18 +11,18 @@
 
 	let { communityText, properties, communityProfiles }: Props = $props();
 
-	let permissions = $derived(Array.isArray($page.data.permissions) ? $page.data.permissions : []);
+	let permissions = $derived(Array.isArray(page.data.permissions) ? page.data.permissions : []);
 	let menuItems = $derived(
 		profileSidebarMenuItems(communityText, properties, null, communityProfiles)
 	);
 
 	function isCurrentPath(itemPath: string) {
-		return $page.url.pathname.startsWith(itemPath);
+		return page.url.pathname.startsWith(itemPath);
 	}
 
 	let activeSubmenus = $state<string[]>([]);
 	let activeSubSubmenus = $state<Record<string, string[]>>({});
-	let currentPath = $state($page.url.pathname);
+	let currentPath = $state(page.url.pathname);
 
 	$effect(() => {
 		activeSubmenus = menuItems
@@ -31,8 +31,8 @@
 	});
 
 	$effect(() => {
-		if (currentPath !== $page.url.pathname) {
-			currentPath = $page.url.pathname;
+		if (currentPath !== page.url.pathname) {
+			currentPath = page.url.pathname;
 			const newActiveSubmenus = new Set<string>();
 			const newActiveSubSubmenus: Record<string, string[]> = {};
 

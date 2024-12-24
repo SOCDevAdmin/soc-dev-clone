@@ -60,8 +60,8 @@ Implements:
    - /personal-profile/*
 
 2. KYNG Coordinator:
-   - /kyngcoordinator
-   - /kyngcoordinator/[kyng_area]
+   - /kyng-coordinator
+   - /kyng-coordinator/[kyng_area]
 
 3. Admin Routes:
    - /admin/* (requires admin permission)
@@ -191,8 +191,8 @@ Protected Routes:
 			/personal-profile/my-property/[propertyid] => have session and user and UserPropertyProfile.id === `propertyid`
 
 	Coordinator Routes:
-			/kyngcoordinator => length `coordinatesKYNG`> 0 and not null
-			/kyngcoordinator/[kyng_area] => `coordinatesKYNG`.kyngAreaId === `kyng_area`
+			/kyng-coordinator => length `coordinatesKYNG`> 0 and not null
+			/kyng-coordinator/[kyng_area] => `coordinatesKYNG`.kyngAreaId === `kyng_area`
 
 	Admin Routes:	/admin => permissions.includes('admin')
 		Community Admin:	/admin/community => permissions.includes('admin.communities')

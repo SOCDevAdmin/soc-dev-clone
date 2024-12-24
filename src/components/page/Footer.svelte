@@ -1,5 +1,5 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { AppBar } from '@skeletonlabs/skeleton-svelte';
 </script>
 
@@ -10,7 +10,7 @@
 	{#snippet lead()}
 		<a
 			class="btn btn-sm mb-2 w-full bg-tertiary-400 font-semibold text-surface-50 sm:mb-0 sm:w-auto"
-			class:active={$page.url.pathname.endsWith('/policies/termsofservice')}
+			class:active={page.url.pathname.endsWith('/policies/termsofservice')}
 			data-sveltekit-preload-data="hover"
 			href="/policies/termsofservice"
 		>
@@ -21,7 +21,7 @@
 	{#snippet trail()}
 		<a
 			class="btn btn-sm mb-2 w-full bg-tertiary-400 font-semibold text-surface-50 sm:mb-0 sm:w-auto"
-			class:active={$page.url.pathname.endsWith('/policies/privacy')}
+			class:active={page.url.pathname.endsWith('/policies/privacy')}
 			data-sveltekit-preload-data="hover"
 			href="/policies/privacy"
 		>

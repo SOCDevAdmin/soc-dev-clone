@@ -17,9 +17,15 @@ export async function guardRoute({
 	user: User | null;
 	userRoles: string[] | null;
 	coordinatesKYNG: KYNGArea[] | null;
-	permissions?: string;
+	permissions?: string | null;
 	propertyIds?: string[];
 }) {
+	console.log('Guard Route Debug:', {
+		path,
+		isKYNG: routeMatchers.isKYNGRoute(path),
+		requiredPermission: routeMatchers.getRequiredPermission(path)
+	});
+
 	if (routeMatchers.isPublicRoute(path)) {
 		return;
 	}
@@ -39,6 +45,11 @@ export async function guardRoute({
 
 		const kyngArea = routeMatchers.getKYNGArea(path);
 		if (kyngArea && !coordinatesKYNG.some((area) => area.kyngAreaId === kyngArea)) {
+			console.log('Unauthorized KYNG area:', {
+				coordinatesKYNG,
+				kyngArea,
+				haveMatch: coordinatesKYNG.some((area) => area.kyngAreaId === kyngArea)
+			});
 			throw error(403, 'Not authorized for this KYNG area');
 		}
 		return;

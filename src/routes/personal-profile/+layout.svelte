@@ -20,9 +20,6 @@
 		: [data.userProfile.property_profile];
 
 	const communityProfiles = data.communityProfiles;
-	$effect(() => {
-		console.log('Layout Data:', data.userProfile.property_profile);
-	});
 </script>
 
 <div class="app-shell bg-orange-200">

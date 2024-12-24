@@ -136,10 +136,15 @@ const authGuard: Handle = async ({ event, resolve }) => {
 	const { session, user, userRoles, coordinatesKYNG, propertyIds } =
 		await event.locals.getSessionAndUser();
 
-	let permissions;
+	let permissions: string | null = null;
 	if (session && user && userRoles) {
 		permissions = await getUserPermissions(event.locals.supabase, user.id, userRoles);
 	}
+
+	// Add to event.locals for access in layouts
+	event.locals.user = user;
+	event.locals.permissions = permissions;
+	event.locals.coordinatesKYNG = coordinatesKYNG;
 
 	await guardRoute({
 		path: event.url.pathname,

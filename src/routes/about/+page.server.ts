@@ -12,6 +12,20 @@ export const load: PageServerLoad = async ({ locals: { supabase } }) => {
 	}
 
 	return {
-		projectAddressPointData: projectAddressPointData ?? []
+		projectAddressPointData: projectAddressPointData ?? [],
+		session: null,
+		user: null,
+		userRoles: null,
+		permissions: null,
+		coordinatesKYNG: null,
+		propertyIds: null,
+		userProfile: null,
+		optionsData: {
+			userOptionsData: { object_names: [] },
+			communityBCYCAOptionsData: { object_names: [] },
+			communityExternalOptionsData: { object_names: [] },
+			communityTinoneeOptionsData: { object_names: [] },
+			communityMondrookOptionsData: { object_names: [] }
+		}
 	};
 };

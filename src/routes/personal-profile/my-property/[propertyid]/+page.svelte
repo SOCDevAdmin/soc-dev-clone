@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { writable } from 'svelte/store';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	import { formatMobile, formatPhone } from '$lib/utility';
 	import { yesNoOptions, accessOptions } from '$lib/profile-options';
@@ -24,10 +24,10 @@
 	let formErrorMessage = $state(form?.errorMessage || '');
 	let formSuccess = $state(form?.success || false);
 
-	const propertyId = $page.params.propertyid;
+	const propertyId = page.params.propertyid;
 
 	let currentProperty: PropertyProfile = $state(
-		$page.data.userProfile.property_profile.find(
+		page.data.userProfile.property_profile.find(
 			(property: { id: string }) => property.id === propertyId
 		)
 	);
@@ -55,7 +55,7 @@
 	});
 
 	function handleReset() {
-		currentProperty = $page.data.userProfile.property_profile.find(
+		currentProperty = page.data.userProfile.property_profile.find(
 			(property: { id: string }) => property.id === propertyId
 		);
 

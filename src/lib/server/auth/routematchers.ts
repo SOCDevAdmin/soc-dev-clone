@@ -35,15 +35,23 @@ export const routeMatchers = {
 	},
 
 	isKYNGRoute: (path: string): boolean => {
-		return path.startsWith('/kyngcoordinator');
+		return path.startsWith('/kyng-coordinator');
 	},
 
+	// getKYNGArea: (path: string): string | null => {
+	// 	const match = path.match(/^\/kyng-coordinator\/(.+)$/);
+	// 	return match ? match[1] : null;
+	// },
+
 	getKYNGArea: (path: string): string | null => {
-		const match = path.match(/^\/kyngcoordinator\/(.+)$/);
+		const match = path.match(/^\/kyng-coordinator\/([^/]+)/);
 		return match ? match[1] : null;
 	},
 
 	getRequiredPermission: (path: string): string | null => {
+		if (path.startsWith('/kyng-coordinator')) {
+			return 'kyng';
+		}
 		if (path.startsWith('/admin')) {
 			const segments = path.split('/').filter(Boolean);
 

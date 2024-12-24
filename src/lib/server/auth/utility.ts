@@ -16,7 +16,10 @@ export async function getUserPermissions(
 		console.error('Error fetching permission:', permissionError);
 		error(CLIENT_ERROR_UNAUTHORIZED, 'Failed to fetch permissions');
 	}
-	const permission = [...new Set(permissionData?.map((p) => p.permission))].join(',');
+
+	const permission = Array.from(
+		new Set(permissionData?.flatMap((p) => p.permission.split(',')))
+	).join(',');
 
 	if (!permissionData || !permission.includes('admin')) {
 		console.error('Forbidden attempt on /admin by userId:', userId);

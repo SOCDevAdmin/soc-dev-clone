@@ -45,7 +45,7 @@
 				</a>
 			</div>
 			{#if errorMessage !== ''}
-				<AuthErrorMessage message={errorMessage} />
+				<AuthErrorMessage {errorMessage} />
 			{/if}
 			<button
 				type="submit"

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import FormActions from '$components/form/FormActions.svelte';
 	import FormAlerts from '$components/form/FormAlerts.svelte';
 
@@ -25,9 +25,9 @@
 	let formErrorMessage = $state(form?.errorMessage || '');
 	let formSuccess = $state(form?.success || false);
 
-	const propertyId = $page.params.propertyid;
+	const propertyId = page.params.propertyid;
 	const currentProperty = $state(
-		$page.data.userProfile.property_profile.find(
+		page.data.userProfile.property_profile.find(
 			(property: { id: string }) => property.id === propertyId
 		)
 	);

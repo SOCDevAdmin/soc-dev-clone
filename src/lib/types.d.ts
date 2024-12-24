@@ -22,6 +22,62 @@ export type FullAutoFill =
 	| 'additional-name'
 	| 'family-name';
 
+export interface TabulatorProps {
+	columns: any[];
+	data: any[];
+	layout: 'fitDataFill' | 'fitData' | 'fitColumns' | 'fitDataStretch' | 'fitDataTable' | undefined;
+	responsiveLayout?: boolean | 'collapse' | 'hide';
+	pagination?: boolean;
+	paginationSize?: number;
+	paginationSizeSelector?: any[];
+	movableColumns?: boolean;
+	paginationCounter?:
+		| 'rows'
+		| 'pages'
+		| ((
+				pageSize: number,
+				currentRow: number,
+				currentPage: number,
+				totalRows: number,
+				totalPages: number
+		  ) => string | HTMLElement)
+		| undefined;
+}
+
+export type ComparisonOption = {
+	value: string;
+	lable: string;
+};
+
+export interface BCYCAInformationItem {
+	other_information?: string;
+	email: string;
+	name: string;
+	property_address: string;
+	created_at: string;
+}
+interface ExternalInformationItem {
+	other_information?: string;
+	email: string;
+	name: string;
+	property_address: string;
+	created_at: string;
+}
+interface MondrookInformationItem {
+	other_information?: string;
+	email: string;
+	name: string;
+	property_address: string;
+	created_at: string;
+}
+interface TinoneeInformationItem {
+	other_information?: string;
+	email: string;
+	name: string;
+	property_address: string;
+	created_at: string;
+}
+
 interface TabItem {
 	label: string;
 	value: number;

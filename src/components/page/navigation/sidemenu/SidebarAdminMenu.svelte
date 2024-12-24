@@ -1,11 +1,14 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { adminSidebarMenuItems } from '$lib/menu-items';
 
-	let permissions = $derived(Array.isArray($page.data.permissions) ? $page.data.permissions : []);
+	let permissions = $derived(
+		typeof page.data.permissions === 'string' ? page.data.permissions.split(',') : []
+	);
+
 	let menuItems = $derived(adminSidebarMenuItems(permissions));
 
-	let currentPath = $state($page.url.pathname);
+	let currentPath = $state(page.url.pathname);
 
 	function isCurrentPath(itemPath: string) {
 		return currentPath.startsWith(itemPath);
@@ -21,8 +24,8 @@
 	});
 
 	$effect(() => {
-		if (currentPath !== $page.url.pathname) {
-			currentPath = $page.url.pathname;
+		if (currentPath !== page.url.pathname) {
+			currentPath = page.url.pathname;
 			const newActiveSubmenus = new Set<string>();
 			const newActiveSubSubmenus: Record<string, string[]> = {};
 

@@ -11,7 +11,6 @@
 	}
 
 	let { pathLables, properties = [], coordinatesKYNG = [] }: Props = $props();
-	console.log('pathLables', pathLables);
 
 	let crumbs: Crumb[] = $state([]);
 
@@ -23,11 +22,8 @@
 		const tokens = page.url.pathname.split('/').filter((t) => t !== '');
 		let tokenPath = '';
 		crumbs = tokens.map((t, index) => {
-			console.log('t', t);
 			tokenPath += '/' + t;
 			let config = pathLables[t] || { label: t };
-			console.log('pathLables[t]', pathLables[t]);
-			console.log('config', config);
 
 			// Check if token is a KYNG area ID
 			const kyngArea = coordinatesKYNG.find((area) => area.kyngAreaId === t);
@@ -40,7 +36,6 @@
 				const label = properties.length === 1 ? 'My Property' : `Property ${propertyIndex + 1}`;
 				config = { label, icon: pathLables['my-property'].icon };
 			}
-			console.log('label', config.label);
 			return {
 				label: config.label,
 				href: tokenPath,

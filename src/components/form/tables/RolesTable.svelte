@@ -18,8 +18,6 @@
 		};
 	}>();
 
-	console.log('data', data);
-
 	let table: Tabulator;
 	let tableElement: HTMLElement;
 
